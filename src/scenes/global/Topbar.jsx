@@ -47,7 +47,7 @@ const Topbar = () => {
         >
           <PersonOutlinedIcon />
           <Typography variant="subtitle1">Hi, Luis</Typography>
-          <KeyboardArrowDownIcon /> {/** TO DO: change the icon to an up arrow when the menu is open */}
+          <KeyboardArrowDownIcon /> {/** TODO: change the icon to an up arrow when the menu is open */}
         </Box>
       </Box>
 
