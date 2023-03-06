@@ -4,7 +4,7 @@ import { tokens } from "../theme";
 import AddModalWindow from "./AddModalWindow";
 import CircleButton from "./CircleButton";
 
-const Header = ({ title, subtitle, addAction }) => {
+const Header = ({ isTable = false, title, subtitle, addAction }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -26,12 +26,9 @@ const Header = ({ title, subtitle, addAction }) => {
         </Typography>
       </Box>
 
-      {/* Add a prop to display or not the Add button
-          Add the AddButton component
-      */}
       <Box>
-        <CircleButton onClick={handleOpenModal} />
-        
+        {isTable && <CircleButton onClick={handleOpenModal} />}
+
         {/* Render the modal only if it is open */}
         {openModal && (
           <AddModalWindow

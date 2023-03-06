@@ -3,7 +3,6 @@ import { useState } from "react";
 const useModal = () => {
   // state to keep track of whether the modal is open or not
   const [openModal, setOpenModal] = useState(false);
-  // console.log({openModal});
   
   // function to open the modal
   const handleOpenModal = () => {

@@ -6,7 +6,6 @@ import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../components/Header";
 import Table from "../../components/Table";
-import AddModalWindow from "../../components/AddModalWindow";
 
 const Users = () => {
   const theme = useTheme();
@@ -52,7 +51,7 @@ const Users = () => {
       renderCell: ({ row: { role } }) => {
         return (
           <Box
-            width="60%"
+            width="70%" // Fix the width
             m="0 auto"
             p="5px"
             display="flex"
@@ -85,6 +84,7 @@ const Users = () => {
   return (
     <Box m="20px">
       <Header
+        isTable={true}
         title="Users"
         subtitle="List of Users for future amazing projects"
         addAction={addFunction}

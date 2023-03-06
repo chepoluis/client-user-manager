@@ -5,6 +5,7 @@ import Table from "../../components/Table";
 
 const Logs = () => {
   // TODO: Review the model on the backend, to add the new fields on the frontend
+  // TODO: add filters
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
     {

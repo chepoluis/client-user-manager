@@ -21,7 +21,7 @@ const Accounts = () => {
 
   return (
     <Box m="20px">
-      <Header title="Accounts" subtitle="Accounts :p" />
+      <Header isTable={true} title="Accounts" subtitle="Accounts :p" />
       <Table columns={columns} data={mockDataAccount} />
     </Box>
   );

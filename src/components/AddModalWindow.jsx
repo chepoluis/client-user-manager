@@ -1,15 +1,12 @@
-import { Modal } from '@mui/material';
-import React from 'react';
+import { Modal } from "@mui/material";
+import React from "react";
+import Form from "../scenes/form";
 
 const AddModalWindow = ({ open, onClose, addAction }) => {
-
   return (
-    <div>
-      <Modal
-        open={open}
-        onClose={onClose}
-      >
-        <div>Modal content</div>
+    <div >
+      <Modal open={open} onClose={onClose}>
+        <Form />
       </Modal>
     </div>
   );
