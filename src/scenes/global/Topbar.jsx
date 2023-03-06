@@ -13,7 +13,7 @@ import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
 const Topbar = () => {
   const theme = useTheme();
@@ -47,7 +47,7 @@ const Topbar = () => {
         >
           <PersonOutlinedIcon />
           <Typography variant="subtitle1">Hi, Luis</Typography>
-          <KeyboardArrowDownIcon /> {/** TO DO: change the icon to an up arrow when the menu is open */}
+          {isDropdownMenuOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}          
         </Box>
       </Box>
 
