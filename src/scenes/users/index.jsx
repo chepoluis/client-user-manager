@@ -6,8 +6,12 @@ import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../components/Header";
 import Table from "../../components/Table";
+import { useEffect } from "react";
+import { useSetPages } from "../../hooks/useSetPages";
 
 const Users = () => {
+  const [setPage] = useSetPages();
+
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const columns = [
@@ -76,6 +80,10 @@ const Users = () => {
       },
     },
   ];
+
+  useEffect(() => {
+    setPage('users');
+  }, [setPage]);
 
   const addFunction = () => {
     console.log("Hola");
