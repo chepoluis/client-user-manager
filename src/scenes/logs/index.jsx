@@ -22,7 +22,7 @@ const Logs = () => {
 
   return (
     <Box m="20px">
-      <Header title="Teams" subtitle="Teams :p" />
+      <Header title="Logs" subtitle="Logs :p" />
       <Table columns={columns} data={mockDataLogs} />
     </Box>
   );
