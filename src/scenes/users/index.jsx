@@ -6,24 +6,29 @@ import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../components/Header";
 import Table from "../../components/Table";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSetPages } from "../../hooks/useSetPages";
+import useModal from "../../hooks/useModal";
+import AddModalWindow from "../../components/AddModalWindow";
 
 const Users = () => {
   const [setPage] = useSetPages();
+  const [dataRow, setDataRow] = useState({});
+
+  const { openModal, handleOpenModal, handleCloseModal } = useModal();
 
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
     {
-      field: "name",
-      headerName: "Name",
+      field: "firstName",
+      headerName: "First Name",
       flex: 1,
       cellClassName: "name-column--cell",
     },
     {
-      field: "lastname",
+      field: "lastName",
       headerName: "Last name",
       flex: 1,
       cellClassName: "lastname-column--cell",
@@ -34,12 +39,12 @@ const Users = () => {
       flex: 1,
     },
     {
-      field: "englishlevel",
+      field: "englishLevel",
       headerName: "English level",
       flex: 1,
     },
     {
-      field: "resumelink",
+      field: "resumeLink",
       headerName: "Resume Link",
       flex: 1,
     },
@@ -81,6 +86,12 @@ const Users = () => {
     },
   ];
 
+  const handleEditClick = ({row}) => {
+    console.log(row);
+    setDataRow(row);
+    handleOpenModal();
+  };
+
   useEffect(() => {
     setPage('users');
   }, [setPage]);
@@ -97,7 +108,10 @@ const Users = () => {
         subtitle="List of Users for future amazing projects"
         addAction={addFunction}
       />
-      <Table columns={columns} data={mockDataTeam} />
+      <Table columns={columns} data={mockDataTeam} handleEditClick={handleEditClick}/>
+      {openModal && (
+        <AddModalWindow open={openModal} onClose={handleCloseModal} dataRow={dataRow} />
+      )}
     </Box>
   );
 };

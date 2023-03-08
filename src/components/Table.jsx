@@ -2,7 +2,7 @@ import { Box, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../theme";
 
-const Table = ({ columns, data }) => {
+const Table = ({ columns, data, handleEditClick }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -37,7 +37,7 @@ const Table = ({ columns, data }) => {
           },
         }}
       >
-        <DataGrid checkboxSelection rows={data} columns={columns} />
+        <DataGrid onCellDoubleClick={handleEditClick} checkboxSelection rows={data} columns={columns} />
       </Box>
     </Box>
   );

@@ -3,10 +3,15 @@ import { mockDataTeams } from "../../data/mockDataTeams";
 import Header from "../../components/Header";
 import Table from "../../components/Table";
 import { useSetPages } from "../../hooks/useSetPages";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import useModal from "../../hooks/useModal";
+import AddModalWindow from "../../components/AddModalWindow";
 
 const Teams = () => {
   const [setPage] = useSetPages();
+  const [dataRow, setDataRow] = useState({});
+
+  const { openModal, handleOpenModal, handleCloseModal } = useModal();
 
   useEffect(() => {
     setPage("teams");
@@ -27,10 +32,18 @@ const Teams = () => {
     },
   ];
 
+  const handleEditClick = ({row}) => {
+    setDataRow(row);
+    handleOpenModal();
+  };
+
   return (
     <Box m="20px">
       <Header isTable={true} title="Teams" subtitle="Teams :p" />
-      <Table columns={columns} data={mockDataTeams} />
+      <Table columns={columns} data={mockDataTeams} handleEditClick={handleEditClick}/>
+      {openModal && (
+        <AddModalWindow open={openModal} onClose={handleCloseModal} dataRow={dataRow} />
+      )}
     </Box>
   );
 };
