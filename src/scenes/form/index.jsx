@@ -7,8 +7,12 @@ import { forwardRef } from "react";
 import { useSelector } from "react-redux";
 import { getPageObject } from "../../utils/objectForms";
 import { deleteLastLetter } from "../../utils/deleteLastLetter";
+import { isEmptyObject } from "../../utils/isEmptyObject";
 
 const Form = forwardRef((props, ref) => {
+  const { dataRow } = props;
+  const isNew = isEmptyObject(dataRow);
+
   const { currentPage } = useSelector((state) => state.global);
   const currentPageSingular = deleteLastLetter(currentPage); // Current page in singular: Teams -> Team
 
@@ -27,6 +31,7 @@ const Form = forwardRef((props, ref) => {
     <Box
       ref={ref}
       m="20px"
+      tabIndex={-1}
       sx={{
         background: `${colors.primary[400]}`,
         padding: "20px",
@@ -42,13 +47,13 @@ const Form = forwardRef((props, ref) => {
       }}
     >
       <Header
-        title={`CREATE ${currentPageSingular.toUpperCase()}`}
-        subtitle={`Create new ${currentPageSingular}`}
+        title={`${isNew ? `CREATE` : `EDIT`} ${currentPageSingular.toUpperCase()}`}
+        subtitle={`${isNew ? `Create new` : `Edit current`} ${currentPageSingular}`}
       />
 
       <Formik
         onSubmit={handleFormSubmit}
-        initialValues={initialValues}
+        initialValues={isNew ? initialValues : dataRow }
         validationSchema={checkoutSchema}
       >
         {({
@@ -89,7 +94,7 @@ const Form = forwardRef((props, ref) => {
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button type="submit" color="secondary" variant="contained">
-                Create New {`${currentPageSingular}`}
+                {isNew ? `Create New` : `Edit`} {`${currentPageSingular}`}
               </Button>
             </Box>
           </form>

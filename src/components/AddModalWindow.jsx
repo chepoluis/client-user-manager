@@ -2,11 +2,11 @@ import { Modal } from "@mui/material";
 import React from "react";
 import Form from "../scenes/form";
 
-const AddModalWindow = ({ open, onClose, addAction }) => {
+const AddModalWindow = ({ open, onClose, addAction = null, dataRow = {} }) => {
   return (
-    <div >
+    <div>
       <Modal open={open} onClose={onClose}>
-        <Form />
+        <Form dataRow={dataRow} />
       </Modal>
     </div>
   );
