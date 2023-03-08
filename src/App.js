@@ -10,6 +10,7 @@ import Users from "./scenes/users";
 import Accounts from "./scenes/accounts";
 import Teams from "./scenes/teams";
 import Logs from "./scenes/logs";
+import { Profile } from "./scenes/profile/Profile";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -33,7 +34,7 @@ function App() {
               <Route path='/accounts' element={ <Accounts /> } />
               <Route path='/teams' element={ <Teams /> } />
               <Route path='/logs' element={ <Logs /> } />
-              {/* <Route path='/profile' element={ <Profile /> } /> */}
+              <Route path='/profile' element={ <Profile /> } />
             </Routes>
           </main>
         </div>

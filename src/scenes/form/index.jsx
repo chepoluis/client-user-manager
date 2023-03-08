@@ -30,6 +30,7 @@ const Form = forwardRef((props, ref) => {
       sx={{
         background: `${colors.primary[400]}`,
         padding: "20px",
+        margin: "0",
         borderRadius: "10px",
         display: "flex",
         flexDirection: "column",
