@@ -53,7 +53,7 @@ export const Profile = () => {
               flexDirection="column"
               gap="30px"
             >
-              <Box display="flex" justifyContent="space-between">
+              <Box display="flex">
                 <TextField
                   fullWidth
                   variant="filled"
@@ -73,7 +73,7 @@ export const Profile = () => {
                   sx={{
                     color: `${colors.letters}`,
                     fontSize: "20px",
-                    marginRight: "40px",
+                    marginLeft: "50px",
                   }}
                 >
                   Link to my CV
@@ -123,7 +123,7 @@ export const Profile = () => {
             </Box>
 
             {/* Show and hide the button?? */}
-            <Box display="flex" justifyContent="end" mt="20px">
+            <Box display="flex" mt="20px">
               <Button type="submit" color="secondary" variant="contained">
                 Save changes
               </Button>
