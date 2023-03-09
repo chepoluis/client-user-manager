@@ -7,7 +7,7 @@ const Logs = () => {
   // TODO: Review the model on the backend, to add the new fields on the frontend
   // TODO: add filters
   const columns = [
-    { field: "id", headerName: "ID", flex: 0.5 },
+    { field: "id", headerName: "ID", flex: 0.1 },
     {
       field: "date",
       headerName: "Date",
@@ -23,7 +23,7 @@ const Logs = () => {
   return (
     <Box m="20px">
       <Header title="Logs" subtitle="Logs :p" />
-      <Table columns={columns} data={mockDataLogs} />
+      <Table columns={columns} data={mockDataLogs} isDeleteEnabled={false}/>
     </Box>
   );
 };
