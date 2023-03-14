@@ -74,6 +74,12 @@ export const getPageObject = (page) => {
           validation: "namesStrings",
         },
         {
+          label: "Client",
+          name: "client",
+          type: "text",
+          validation: "namesStrings",
+        },
+        {
           label: "Operation manager",
           name: "operationManagerName",
           type: "text",

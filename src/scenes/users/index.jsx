@@ -13,8 +13,11 @@ import AddModalWindow from "../../components/AddModalWindow";
 import { useManageData } from "../../hooks/useManageData";
 
 const Users = () => {
-  const { data, deleteItems, updateItem, createItem } = useManageData(mockDataUser, 'userData');
-  
+  const { data, deleteItems, updateItem, createItem } = useManageData(
+    mockDataUser,
+    "userData"
+  );
+
   const [setPage] = useSetPages();
   const [dataRow, setDataRow] = useState({});
 
@@ -89,13 +92,13 @@ const Users = () => {
     },
   ];
 
-  const handleEditClick = ({row}) => {
+  const handleEditClick = ({ row }) => {
     setDataRow(row);
     handleOpenModal();
   };
 
   useEffect(() => {
-    setPage('users');
+    setPage("users");
   }, [setPage]);
 
   return (
@@ -106,9 +109,19 @@ const Users = () => {
         subtitle="List of Users for future amazing projects"
         addAction={createItem}
       />
-      <Table columns={columns} data={data} handleEditClick={handleEditClick} handleDeletClick={deleteItems}/>
+      <Table
+        columns={columns}
+        data={data}
+        handleEditClick={handleEditClick}
+        handleDeletClick={deleteItems}
+      />
       {openModal && (
-        <AddModalWindow open={openModal} onClose={handleCloseModal} dataRow={dataRow} handleEdit={updateItem} />
+        <AddModalWindow
+          open={openModal}
+          onClose={handleCloseModal}
+          dataRow={dataRow}
+          handleEdit={updateItem}
+        />
       )}
     </Box>
   );

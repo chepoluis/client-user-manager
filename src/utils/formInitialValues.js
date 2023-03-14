@@ -19,6 +19,7 @@ export const getInitialValues = (page) => {
     case "accounts":
       obj = {
         name: "",
+        client: "",
         operationManagerName: "",
       };
       break;
