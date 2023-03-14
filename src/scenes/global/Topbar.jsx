@@ -14,20 +14,31 @@ import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import { deleteUserFromSessionStorage } from "../../auth/saveSession";
+import { useDispatch } from "react-redux";
+import { startLogout } from "../../store/slices/auth/thunks";
 
 const Topbar = () => {
   const theme = useTheme();
   const colorMode = useContext(ColorModeContext);
   const [isDropdownMenuOpen, setIsDropdownMenuOpen] = useState(null);
 
+  const dispatch = useDispatch();
+
+  
   const handleHiClick = (event) => {
     setIsDropdownMenuOpen(event.currentTarget);
   };
-
+  
   const handleMenuClose = () => {
     setIsDropdownMenuOpen(null);
   };
-
+  
+  const logout = () => {
+    deleteUserFromSessionStorage();
+    dispatch(startLogout());
+  };
+  
   return (
     <Box display="flex" justifyContent="flex-end" p={1}>
       <Box display="flex">
@@ -47,7 +58,11 @@ const Topbar = () => {
         >
           <PersonOutlinedIcon />
           <Typography variant="subtitle1">Hi, Luis</Typography>
-          {isDropdownMenuOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}          
+          {isDropdownMenuOpen ? (
+            <KeyboardArrowUpIcon />
+          ) : (
+            <KeyboardArrowDownIcon />
+          )}
         </Box>
       </Box>
 
@@ -56,7 +71,7 @@ const Topbar = () => {
         open={Boolean(isDropdownMenuOpen)}
         onClose={handleMenuClose}
       >
-        <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+        <MenuItem onClick={logout}>Logout</MenuItem>
       </Menu>
     </Box>
   );

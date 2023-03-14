@@ -1,9 +1,12 @@
-import { Box, Button, TextField, useTheme } from "@mui/material";
+import { Alert, Box, Button, Grid, TextField, useTheme } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import { tokens } from "../../theme";
+import { useDispatch, useSelector } from "react-redux";
+import { useMemo } from "react";
+import { startSignIn } from "../../store/slices/auth/thunks";
 
 const Login = (props) => {
   const theme = useTheme();
@@ -11,8 +14,14 @@ const Login = (props) => {
 
   const isNonMobile = useMediaQuery("(min-width:700px)");
 
+  const { status, errorMessage } = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
+
+  const isAuthenticating = useMemo(() => status === "checking", [status]);
+
   const handleFormSubmit = (values) => {
-    console.log(values);
+    dispatch(startSignIn(values));
   };
 
   return (
@@ -84,7 +93,19 @@ const Login = (props) => {
               />
             </Box>
             <Box mt="20px">
+              <Grid
+                item
+                xs={12}
+                display={!!errorMessage ? "" : "none"}
+                style={{
+                  marginBottom: "10px"
+                }}
+              >
+                <Alert severity="error">{errorMessage}</Alert>
+              </Grid>
+
               <Button
+                disabled={isAuthenticating}
                 sx={{ width: "100%", fontSize: "1rem" }}
                 type="submit"
                 color="secondary"
@@ -106,8 +127,8 @@ const checkoutSchema = yup.object().shape({
 });
 
 const initialValues = {
-  email: "",
-  password: "",
+  email: "luis@luis.com",
+  password: "123456",
 };
 
 export default Login;
