@@ -9,8 +9,11 @@ import { getPageObject } from "../../utils/objectForms";
 import { deleteLastLetter } from "../../utils/deleteLastLetter";
 import { isEmptyObject } from "../../utils/isEmptyObject";
 
+import Swal from "sweetalert2"
+import 'sweetalert2/dist/sweetalert2.css';
+
 const Form = forwardRef((props, ref) => {
-  const { dataRow } = props;
+  const { dataRow, handleAdd, handleEdit, closeModal } = props;
   const isNew = isEmptyObject(dataRow);
 
   const { currentPage } = useSelector((state) => state.global);
@@ -24,7 +27,15 @@ const Form = forwardRef((props, ref) => {
   const [formObject, checkoutSchema, initialValues] = getPageObject(currentPage);
 
   const handleFormSubmit = (values) => {
-    console.log(values);
+    if (isNew) {
+      handleAdd(values);
+      Swal.fire('Added', ':)', 'success');
+    } else {
+      handleEdit(values.id, values);
+      Swal.fire('Edited', ':)', 'success');
+    }
+
+    closeModal();
   };
 
   return (

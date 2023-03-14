@@ -3,20 +3,18 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useState } from "react";
 import { tokens } from "../theme";
 
-const Table = ({ columns, data, handleEditClick, isDeleteEnabled = true }) => {
+const Table = ({ columns, data, handleEditClick, handleDeletClick, isDeleteEnabled = true }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
   const [selectedRows, setSelectedRows] = useState([]);
 
   const handleSelectionChange = (newSelection) => {
-    console.log(newSelection);
-    // setSelectedRows(newSelection.rows);
     setSelectedRows(newSelection);
   };
 
   const handleDeleteClick = () => {
-    // Implement delete logic here, using the selectedRows array
+    handleDeletClick(selectedRows);
   };
 
   return (

@@ -6,14 +6,14 @@ export const startSignIn = ({ email, password }) => {
   return async (dispatch) => {
     try {
       dispatch(checkingCredentials());
-
       const user = await signInWithEmail({ email, password });
-
+      
+      console.log(user);
       saveUserToSessionStorage(user);
 
-      const { email: userEmail, displayName } = user;
+      const { email: userEmail, firstName, role } = user;
       
-      dispatch(login({ email: userEmail, displayName }));
+      dispatch(login({ email: userEmail, firstName, role }));
     } catch (err) {
       return dispatch(logout({ errorMessage: "Invalid email or password" }));
     }

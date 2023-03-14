@@ -15,10 +15,12 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { deleteUserFromSessionStorage } from "../../auth/saveSession";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { startLogout } from "../../store/slices/auth/thunks";
 
 const Topbar = () => {
+  const { firstName } = useSelector(state => state.auth);
+
   const theme = useTheme();
   const colorMode = useContext(ColorModeContext);
   const [isDropdownMenuOpen, setIsDropdownMenuOpen] = useState(null);
@@ -35,6 +37,7 @@ const Topbar = () => {
   };
   
   const logout = () => {
+    // TODO: delete things saven in localStorage
     deleteUserFromSessionStorage();
     dispatch(startLogout());
   };
@@ -57,7 +60,7 @@ const Topbar = () => {
           style={{ cursor: "pointer" }}
         >
           <PersonOutlinedIcon />
-          <Typography variant="subtitle1">Hi, Luis</Typography>
+          <Typography variant="subtitle1">Hi, {firstName}</Typography>
           {isDropdownMenuOpen ? (
             <KeyboardArrowUpIcon />
           ) : (

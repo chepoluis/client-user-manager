@@ -1,6 +1,6 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
-import { mockDataTeam } from "../../data/mockData";
+import { mockDataUser } from "../../data/mockData";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
@@ -10,8 +10,11 @@ import { useEffect, useState } from "react";
 import { useSetPages } from "../../hooks/useSetPages";
 import useModal from "../../hooks/useModal";
 import AddModalWindow from "../../components/AddModalWindow";
+import { useManageData } from "../../hooks/useManageData";
 
 const Users = () => {
+  const { data, deleteItems, updateItem, createItem } = useManageData(mockDataUser, 'userData');
+  
   const [setPage] = useSetPages();
   const [dataRow, setDataRow] = useState({});
 
@@ -20,7 +23,7 @@ const Users = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const columns = [
-    { field: "id", headerName: "ID", flex: 0.5 },
+    // { field: "id", headerName: "ID", flex: 0.5 },
     {
       field: "firstName",
       headerName: "First Name",
@@ -66,17 +69,17 @@ const Users = () => {
             display="flex"
             justifyContent="center"
             backgroundColor={
-              role === "admin"
+              role === "Super"
                 ? colors.greenAccent[600]
-                : role === "manager"
+                : role === "Admin"
                 ? colors.greenAccent[700]
                 : colors.greenAccent[700]
             }
             borderRadius="4px"
           >
-            {role === "admin" && <AdminPanelSettingsOutlinedIcon />}
-            {role === "manager" && <SecurityOutlinedIcon />}
-            {role === "user" && <LockOpenOutlinedIcon />}
+            {role === "Super" && <AdminPanelSettingsOutlinedIcon />}
+            {role === "Admin" && <SecurityOutlinedIcon />}
+            {role === "Normal" && <LockOpenOutlinedIcon />}
             <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
               {role}
             </Typography>
@@ -87,7 +90,6 @@ const Users = () => {
   ];
 
   const handleEditClick = ({row}) => {
-    console.log(row);
     setDataRow(row);
     handleOpenModal();
   };
@@ -96,21 +98,17 @@ const Users = () => {
     setPage('users');
   }, [setPage]);
 
-  const addFunction = () => {
-    console.log("Hola");
-  };
-
   return (
     <Box m="20px">
       <Header
         isTable={true}
         title="Users"
         subtitle="List of Users for future amazing projects"
-        addAction={addFunction}
+        addAction={createItem}
       />
-      <Table columns={columns} data={mockDataTeam} handleEditClick={handleEditClick}/>
+      <Table columns={columns} data={data} handleEditClick={handleEditClick} handleDeletClick={deleteItems}/>
       {openModal && (
-        <AddModalWindow open={openModal} onClose={handleCloseModal} dataRow={dataRow} />
+        <AddModalWindow open={openModal} onClose={handleCloseModal} dataRow={dataRow} handleEdit={updateItem} />
       )}
     </Box>
   );

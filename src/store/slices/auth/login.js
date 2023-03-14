@@ -1,9 +1,9 @@
-import { userData } from "../../../data/mockUsersData";
+import { mockDataUser } from "../../../data/mockData";
 
 export const signInWithEmail = ({ email, password }) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      const user = userData.find(
+      const user = mockDataUser.find(
         (user) => user.email === email && user.password === password
       );
       

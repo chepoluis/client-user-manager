@@ -127,8 +127,8 @@ const checkoutSchema = yup.object().shape({
 });
 
 const initialValues = {
-  email: "luis@luis.com",
-  password: "123456",
+  email: "jonsnow@gmail.com",
+  password: "12333434",
 };
 
 export default Login;

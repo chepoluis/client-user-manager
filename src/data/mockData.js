@@ -1,4 +1,4 @@
-export const mockDataTeam = [
+export const mockDataUser = [
   {
     id: 1,
     firstName: "Jon Snow",
@@ -8,8 +8,8 @@ export const mockDataTeam = [
     englishLevel: "B2",
     skills: "Skills chidas",
     resumeLink: "www.micv.com",
-    role: "admin",
-    team: "Equipo 7"
+    role: "Super",
+    team: "Equipo 7",
   },
   {
     id: 2,
@@ -20,8 +20,8 @@ export const mockDataTeam = [
     englishLevel: "B2",
     skills: "Skills chidas",
     resumeLink: "www.micv.com",
-    role: "manager",
-    team: "Equipo 7"
+    role: "Super",
+    team: "Equipo 7",
   },
   {
     id: 3,
@@ -32,8 +32,8 @@ export const mockDataTeam = [
     englishLevel: "B2",
     skills: "Skills chidas",
     resumeLink: "www.micv.com",
-    role: "user",
-    team: "Equipo 7"
+    role: "Normal",
+    team: "Equipo 7",
   },
   {
     id: 4,
@@ -44,8 +44,8 @@ export const mockDataTeam = [
     englishLevel: "B2",
     skills: "Skills chidas",
     resumeLink: "www.micv.com",
-    role: "admin",
-    team: "Equipo 7"
+    role: "Admin",
+    team: "Equipo 7",
   },
   {
     id: 5,
@@ -56,8 +56,8 @@ export const mockDataTeam = [
     englishLevel: "B2",
     skills: "Skills chidas",
     resumeLink: "www.micv.com",
-    role: "user",
-    team: "Equipo 7"
+    role: "Super",
+    team: "Equipo 7",
   },
   {
     id: 6,
@@ -68,8 +68,8 @@ export const mockDataTeam = [
     englishLevel: "B2",
     skills: "Skills chidas",
     resumeLink: "www.micv.com",
-    role: "manager",
-    team: "Equipo 7"
+    role: "Normal",
+    team: "Equipo 7",
   },
   {
     id: 7,
@@ -80,8 +80,8 @@ export const mockDataTeam = [
     englishLevel: "B2",
     skills: "Skills chidas",
     resumeLink: "www.micv.com",
-    role: "user",
-    team: "Equipo 7"
+    role: "Normal",
+    team: "Equipo 7",
   },
   {
     id: 8,
@@ -92,8 +92,8 @@ export const mockDataTeam = [
     englishLevel: "B2",
     skills: "Skills chidas",
     resumeLink: "www.micv.com",
-    role: "user",
-    team: "Equipo 7"
+    role: "Normal",
+    team: "Equipo 7",
   },
   {
     id: 9,
@@ -104,7 +104,7 @@ export const mockDataTeam = [
     englishLevel: "B2",
     skills: "Skills chidas",
     resumeLink: "www.micv.com",
-    role: "admin",
-    team: "Equipo 7"
+    role: "Admin",
+    team: "Equipo 7",
   },
 ];
