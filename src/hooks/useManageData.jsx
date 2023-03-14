@@ -36,6 +36,10 @@ export const useManageData = (initialData, dataName) => {
     }
   };
 
+  const updateASingleObject = (id, updates) => {
+    
+  };
+
   const deleteItems = (idsToDelete) => {
     const updatedData = data.filter((item) => !idsToDelete.includes(item.id));
     setData(updatedData);
@@ -57,6 +61,7 @@ export const useManageData = (initialData, dataName) => {
     createItem,
     getItem,
     updateItem,
+    updateASingleObject,
     deleteItems,
   };
 };
