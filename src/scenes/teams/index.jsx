@@ -6,8 +6,14 @@ import { useSetPages } from "../../hooks/useSetPages";
 import { useEffect, useState } from "react";
 import useModal from "../../hooks/useModal";
 import AddModalWindow from "../../components/AddModalWindow";
+import { useManageData } from "../../hooks/useManageData";
 
 const Teams = () => {
+  const { data, deleteItems, updateItem, createItem } = useManageData(
+    mockDataTeams,
+    "teamsData"
+  );
+
   const [setPage] = useSetPages();
   const [dataRow, setDataRow] = useState({});
 
@@ -17,9 +23,8 @@ const Teams = () => {
     setPage("teams");
   }, [setPage]);
 
-  // TODO: Review the model on the backend, to add the new fields on the frontend
   const columns = [
-    { field: "id", headerName: "ID", flex: 0.5 },
+    // { field: "id", headerName: "ID", flex: 0.5 },
     {
       field: "name",
       headerName: "Name",
@@ -32,17 +37,32 @@ const Teams = () => {
     },
   ];
 
-  const handleEditClick = ({row}) => {
+  const handleEditClick = ({ row }) => {
     setDataRow(row);
     handleOpenModal();
   };
 
   return (
     <Box m="20px">
-      <Header isTable={true} title="Teams" subtitle="Teams :p" />
-      <Table columns={columns} data={mockDataTeams} handleEditClick={handleEditClick}/>
+      <Header
+        isTable={true}
+        title="Teams"
+        subtitle="Teams :p"
+        addAction={createItem}
+      />
+      <Table
+        columns={columns}
+        data={data}
+        handleEditClick={handleEditClick}
+        handleDeletClick={deleteItems}
+      />
       {openModal && (
-        <AddModalWindow open={openModal} onClose={handleCloseModal} dataRow={dataRow} />
+        <AddModalWindow
+          open={openModal}
+          onClose={handleCloseModal}
+          dataRow={dataRow}
+          handleEdit={updateItem}
+        />
       )}
     </Box>
   );
