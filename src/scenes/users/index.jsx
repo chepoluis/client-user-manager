@@ -1,6 +1,5 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
-import { mockDataUser } from "../../data/mockData";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
@@ -13,10 +12,7 @@ import AddModalWindow from "../../components/AddModalWindow";
 import { useManageData } from "../../hooks/useManageData";
 
 const Users = () => {
-  const { data, deleteItems, updateItem, createItem } = useManageData(
-    mockDataUser,
-    "userData"
-  );
+  const { data, deleteItems, updateItem, createItem } = useManageData("users");
 
   const [setPage] = useSetPages();
   const [dataRow, setDataRow] = useState({});

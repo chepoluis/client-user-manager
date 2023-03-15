@@ -1,67 +1,95 @@
 import { useEffect, useState } from "react";
-import { v4 as uuidv4 } from 'uuid';
+import axios from "axios";
 
-export const useManageData = (initialData, dataName) => {
-  const [data, setData] = useState(
-    JSON.parse(localStorage.getItem(dataName)) || initialData
-  );
+const URL_API = "http://localhost:3000";
+
+export const useManageData = (dataName) => {
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    localStorage.setItem(dataName, JSON.stringify(data));
-  }, [data, dataName]);
+    getData().then((res) => setData(res));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  const createItem = (item) => {
-    const newItem = {
-      ...item,
-      id: uuidv4()
-    }
-
-    setData([...data, newItem]);
+  const getData = () => {
+    return axios
+      .get(`${URL_API}/${dataName}`)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
-  const getItem = (id) => {
-    return data.find((item) => item.id === id);
+  const deleteItems = (userIds) => {
+    const promises = userIds.map((userId) => {
+      return axios.delete(`${URL_API}/${dataName}/${userId}`);
+    });
+
+    return Promise.all(promises)
+      .then((responses) => {
+        const updatedData = data.filter((item) => !userIds.includes(item.id));
+        setData(updatedData);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const createItem = (item) => {
+    return axios
+      .post(`${URL_API}/${dataName}`, item)
+      .then((response) => {
+        setData([...data, response.data]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const updateItem = (id, updates) => {
-    const itemIndex = data.findIndex((item) => item.id === id);
-    if (itemIndex !== -1) {
-      const updatedItem = { ...data[itemIndex], ...updates };
-      const newData = [
-        ...data.slice(0, itemIndex),
-        updatedItem,
-        ...data.slice(itemIndex + 1),
-      ];
-      setData(newData);
-    }
+    return axios
+      .put(`${URL_API}/${dataName}/${id}`, updates)
+      .then((response) => {
+        const updatedList = data.map((item) => {
+          if (item.id === response.data.id) {
+            return response.data;
+          } else {
+            return item;
+          }
+        });
+        setData(updatedList);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
-  const updateASingleObject = (id, updates) => {
-    
+  const getUserById = (userId) => {
+    return axios
+      .get(`${URL_API}/users/${userId}`)
+      .then((response) => {
+        
+        return {
+          "firstName": response.data.firstName,
+          "lastName": response.data.lastName,
+          "email": response.data.email,
+          "englishLevel": response.data.englishLevel,
+          "skills": response.data.skills
+        }
+        // return response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
-
-  const deleteItems = (idsToDelete) => {
-    const updatedData = data.filter((item) => !idsToDelete.includes(item.id));
-    setData(updatedData);
-  };
-
-  // const deleteItems = (id) => {
-  //   const itemIndex = data.findIndex((item) => item.id === id);
-  //   if (itemIndex !== -1) {
-  //     const newData = [
-  //       ...data.slice(0, itemIndex),
-  //       ...data.slice(itemIndex + 1),
-  //     ];
-  //     setData(newData);
-  //   }
-  // };
 
   return {
     data,
     createItem,
-    getItem,
+    getUserById,
     updateItem,
-    updateASingleObject,
     deleteItems,
   };
 };

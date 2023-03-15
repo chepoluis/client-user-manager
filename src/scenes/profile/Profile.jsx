@@ -14,16 +14,29 @@ import Header from "../../components/Header";
 import { tokens } from "../../theme";
 import { useManageData } from "../../hooks/useManageData";
 import { updateProfile } from "../../store/slices/auth/authSlice";
+import { useEffect, useState } from "react";
 
 export const Profile = () => {
-  const profileData = useSelector(state => state.auth);
+  const [data, setData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    englishLevel: "",
+    skills: ""
+  });
+  const profileData = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-  const { data, updateASingleObject } = useManageData(
-    profileData,
-    "userData"
-  );
-
+  const { getUserById } = useManageData("users");
+  
+  console.log(':D', data);
+  useEffect(() => {
+    getUserById(profileData.id).then((res) => {
+      console.log(res);
+      setData(res);
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -32,7 +45,6 @@ export const Profile = () => {
 
   const handleFormSubmit = (values) => {
     console.log(values);
-    updateASingleObject(data.id, values);
     dispatch(updateProfile(values));
   };
 

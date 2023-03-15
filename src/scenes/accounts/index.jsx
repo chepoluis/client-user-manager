@@ -1,5 +1,4 @@
 import { Box } from "@mui/material";
-import { mockDataAccount } from "../../data/mockDataAccounts";
 import Header from "../../components/Header";
 import Table from "../../components/Table";
 import { useSetPages } from "../../hooks/useSetPages";
@@ -9,10 +8,8 @@ import AddModalWindow from "../../components/AddModalWindow";
 import { useManageData } from "../../hooks/useManageData";
 
 const Accounts = () => {
-  const { data, deleteItems, updateItem, createItem } = useManageData(
-    mockDataAccount,
-    "accountsData"
-  );
+  const { data, deleteItems, updateItem, createItem } =
+    useManageData("accounts");
 
   const [setPage] = useSetPages();
   const [dataRow, setDataRow] = useState({});
