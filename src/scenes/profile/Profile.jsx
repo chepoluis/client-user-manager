@@ -8,11 +8,36 @@ import {
   useTheme,
 } from "@mui/material";
 import { Formik } from "formik";
+import { useDispatch, useSelector } from "react-redux";
 import * as yup from "yup";
 import Header from "../../components/Header";
 import { tokens } from "../../theme";
+import { useManageData } from "../../hooks/useManageData";
+import { updateProfile } from "../../store/slices/auth/authSlice";
+import { useEffect, useState } from "react";
 
 export const Profile = () => {
+  const [data, setData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    englishLevel: "",
+    skills: ""
+  });
+  const profileData = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  const { getUserById } = useManageData("users");
+  
+  console.log(':D', data);
+  useEffect(() => {
+    getUserById(profileData.id).then((res) => {
+      console.log(res);
+      setData(res);
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -20,6 +45,7 @@ export const Profile = () => {
 
   const handleFormSubmit = (values) => {
     console.log(values);
+    dispatch(updateProfile(values));
   };
 
   return (
@@ -35,7 +61,7 @@ export const Profile = () => {
 
       <Formik
         onSubmit={handleFormSubmit}
-        initialValues={initialValues}
+        initialValues={data}
         validationSchema={checkoutSchema}
       >
         {({
@@ -58,14 +84,31 @@ export const Profile = () => {
                   fullWidth
                   variant="filled"
                   type="text"
-                  label="Name"
+                  label="First name"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.name}
-                  name="name"
+                  value={values.firstName}
+                  name="firstName"
                   sx={{ width: isNonMobile ? "400px" : "100%" }}
-                  error={!!touched.name && !!errors.name}
-                  helperText={touched.name && errors.name}
+                  error={!!touched.firstName && !!errors.firstName}
+                  helperText={touched.firstName && errors.firstName}
+                />
+
+                <TextField
+                  fullWidth
+                  variant="filled"
+                  type="text"
+                  label="Last name"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.lastName}
+                  name="lastName"
+                  sx={{
+                    width: isNonMobile ? "400px" : "100%",
+                    marginLeft: "20px",
+                  }}
+                  error={!!touched.lastName && !!errors.lastName}
+                  helperText={touched.lastName && errors.lastName}
                 />
 
                 <Link
@@ -73,7 +116,7 @@ export const Profile = () => {
                   sx={{
                     color: `${colors.letters}`,
                     fontSize: "20px",
-                    marginLeft: "50px",
+                    marginLeft: "30px",
                   }}
                 >
                   Link to my CV
@@ -112,7 +155,7 @@ export const Profile = () => {
                 onBlur={handleBlur}
                 onChange={handleChange}
                 style={{
-                  width: "500px", // TODO: makes the width adjust in mobile view
+                  width: "500px",
                   height: "200px",
                   background: `${colors.primary[400]}`,
                   color: `${colors.letters}`,
@@ -122,7 +165,6 @@ export const Profile = () => {
               />
             </Box>
 
-            {/* Show and hide the button?? */}
             <Box display="flex" mt="20px">
               <Button type="submit" color="secondary" variant="contained">
                 Save changes
@@ -136,15 +178,9 @@ export const Profile = () => {
 };
 
 const checkoutSchema = yup.object().shape({
-  name: yup.string().required("Required"),
+  firstName: yup.string().required("Required"),
+  lastName: yup.string().required("Required"),
   email: yup.string().email("Invalid email").required("No email provided."),
   englishLevel: yup.string().required("Required"),
   skills: yup.string().required("Required"),
 });
-
-const initialValues = {
-  name: "Luis",
-  email: "luis@gmail.com",
-  englishLevel: "B2",
-  skills: "Nice skills",
-};

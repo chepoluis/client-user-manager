@@ -53,7 +53,12 @@ export const getPageObject = (page) => {
         {
           label: "Role",
           name: "role",
-          type: "text",
+          type: "select",
+          options: [
+            { value: "Super", label: "Super" },
+            { value: "Admin", label: "Admin" },
+            { value: "Normal", label: "Normal" },
+          ],
           validation: "namesStrings",
         },
         {
@@ -70,6 +75,12 @@ export const getPageObject = (page) => {
         {
           label: "Name",
           name: "name",
+          type: "text",
+          validation: "namesStrings",
+        },
+        {
+          label: "Client",
+          name: "client",
           type: "text",
           validation: "namesStrings",
         },

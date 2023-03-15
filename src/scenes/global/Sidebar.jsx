@@ -11,6 +11,7 @@ import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import GroupsIcon from "@mui/icons-material/Groups";
 import PersonIcon from "@mui/icons-material/Person";
+import { useSelector } from "react-redux";
 
 // Component that represents a single menu item
 const Item = ({ title, to, icon, selected, setSelected }) => {
@@ -35,6 +36,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 
 // Component that represents the entire sidebar
 const Sidebar = () => {
+  const { firstName, role } = useSelector((state) => state.auth);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -54,7 +56,7 @@ const Sidebar = () => {
           backgroundColor: "transparent !important",
         },
         "& .pro-inner-item": {
-          padding: "5px 35px 5px 20px !important", 
+          padding: "5px 35px 5px 20px !important",
         },
         "& .pro-inner-item:hover": {
           color: "#868dfb !important",
@@ -83,7 +85,7 @@ const Sidebar = () => {
                 ml="15px"
               >
                 <Typography variant="h3" color={colors.grey[100]}>
-                  TITLE XD
+                  Management tool
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
@@ -111,10 +113,10 @@ const Sidebar = () => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Luis {/** User name */}
+                  {firstName} {/** User name */}
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                  Admin {/** User type */}
+                  {role} {/** User type */}
                 </Typography>
               </Box>
             </Box>
@@ -136,35 +138,39 @@ const Sidebar = () => {
             >
               Pages
             </Typography>
-            <Item
-              title="Users"
-              to="/users"
-              icon={<PeopleOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Accounts"
-              to="/accounts"
-              icon={<ContactsOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Teams"
-              to="/teams"
-              icon={<GroupsIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
+            {role !== "Normal" && (
+              <>
+                <Item
+                  title="Users"
+                  to="/users"
+                  icon={<PeopleOutlinedIcon />}
+                  selected={selected}
+                  setSelected={setSelected}
+                />
+                <Item
+                  title="Accounts"
+                  to="/accounts"
+                  icon={<ContactsOutlinedIcon />}
+                  selected={selected}
+                  setSelected={setSelected}
+                />
+                <Item
+                  title="Teams"
+                  to="/teams"
+                  icon={<GroupsIcon />}
+                  selected={selected}
+                  setSelected={setSelected}
+                />
 
-            <Item
-              title="Logs"
-              to="/logs"
-              icon={<ReceiptOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
+                <Item
+                  title="Logs"
+                  to="/logs"
+                  icon={<ReceiptOutlinedIcon />}
+                  selected={selected}
+                  setSelected={setSelected}
+                />
+              </>
+            )}
 
             <Item
               title="Profile"
