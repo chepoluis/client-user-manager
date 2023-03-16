@@ -54,17 +54,18 @@ export const getPageObject = (page) => {
           label: "Role",
           name: "role",
           type: "select",
+          // type: "text",
           options: [
-            { value: "Super", label: "Super" },
-            { value: "Admin", label: "Admin" },
-            { value: "Normal", label: "Normal" },
+            { key: 1, value: "Super", label: "Super" },
+            { key: 2,  value: "Admin", label: "Admin" },
+            { key: 3,  value: "Normal", label: "Normal" },
           ],
           validation: "namesStrings",
         },
         {
           label: "Team",
-          name: "team",
-          type: "text",
+          name: "teamId",
+          type: "select",
           validation: "namesStrings",
         },
       ];
@@ -103,8 +104,9 @@ export const getPageObject = (page) => {
         },
         {
           label: "Account",
-          name: "account",
-          type: "text",
+          name: "accountId",
+          // type: "text",
+          type: "select",
           validation: "namesStrings",
         },
       ];

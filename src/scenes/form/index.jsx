@@ -1,9 +1,16 @@
-import { Box, Button, TextField, useTheme } from "@mui/material";
+import {
+  Box,
+  Button,
+  MenuItem,
+  Select,
+  TextField,
+  useTheme,
+} from "@mui/material";
 import { Formik } from "formik";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import { tokens } from "../../theme";
-import { forwardRef } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { getPageObject } from "../../utils/objectForms";
 import { deleteLastLetter } from "../../utils/deleteLastLetter";
@@ -13,7 +20,29 @@ import { isEmptyObject } from "../../utils/isEmptyObject";
 // import "sweetalert2/dist/sweetalert2.css";
 
 const Form = forwardRef((props, ref) => {
-  const { dataRow, handleAdd, handleEdit, closeModal } = props;
+  const {
+    dataRow,
+    handleAdd,
+    handleEdit,
+    closeModal,
+    dataSelectField = [],
+  } = props;
+  const [selectData, setSelectData] = useState(
+    dataRow[dataRow.accountId] || ""
+  );
+  const [role, setRole] = useState(dataRow.role || "");
+  useEffect(() => {
+    setSelectData(dataRow?.accountId || dataRow?.teamId || "");
+  }, [dataRow]);
+
+  const updateRole = (e) => {
+    setRole(e.target.value);
+  };
+
+  const updateValue = (e) => {
+    setSelectData(e.target.value);
+  };
+
   const isNew = isEmptyObject(dataRow);
 
   const { currentPage } = useSelector((state) => state.global);
@@ -90,6 +119,69 @@ const Form = forwardRef((props, ref) => {
               }}
             >
               {formObject.map((field) => {
+                if (field.type === "select" && !!field?.options) {
+                  return (
+                    <Select
+                      key={field.name}
+                      label={field.label}
+                      value={role}
+                      name={field.name}
+                      // type={field.type}
+                      error={!!touched[field.name] && !!errors[field.name]}
+                      onChange={(e) => {
+                        updateRole(e);
+                        handleChange(e);
+                      }}
+                      displayEmpty={true}
+                      renderValue={(value) => {
+                        if (value === "") {
+                          return <span>{`Choose ${field.label}`}</span>;
+                        }
+                        return value;
+                      }}
+                    >
+                      {field.options.map((element) => (
+                        <MenuItem key={element.key} value={element.value}>
+                          {element.value}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  );
+                } else if (field.type === "select") {
+                  return (
+                    <Select
+                      key={field.name}
+                      label={field.label}
+                      value={selectData}
+                      name={field.name}
+                      // type={field.type}
+                      error={!!touched[field.name] && !!errors[field.name]}
+                      onChange={(e) => {
+                        updateValue(e);
+                        handleChange(e);
+                      }}
+                      displayEmpty={true}
+                      renderValue={(value) => {
+                        const elem = dataSelectField.find(
+                          (val) => val.id === value
+                        );
+
+                        if (value === "") {
+                          return <span>{`Choose ${field.label}`}</span>;
+                        }
+
+                        return elem.name;
+                      }}
+                    >
+                      {dataSelectField.map((element) => (
+                        <MenuItem key={element.id} value={element.id}>
+                          {element.name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  );
+                }
+
                 return (
                   <TextField
                     key={field.name}

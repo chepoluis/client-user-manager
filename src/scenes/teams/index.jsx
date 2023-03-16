@@ -9,11 +9,22 @@ import { useManageData } from "../../hooks/useManageData";
 
 const Teams = () => {
   const { data, deleteItems, updateItem, createItem } = useManageData("teams");
+  const { data: accountData } = useManageData("accounts");
 
   const [setPage] = useSetPages();
   const [dataRow, setDataRow] = useState({});
 
   const { openModal, handleOpenModal, handleCloseModal } = useModal();
+
+  const getAccountName = (accountId) => {
+    const account = accountData.find((account) => account.id === accountId);
+    return account ? account.name : "Not found";
+  };
+
+  const enrichedData = data.map((team) => ({
+    ...team,
+    accountName: getAccountName(team.accountId),
+  }));
 
   useEffect(() => {
     setPage("teams");
@@ -27,7 +38,7 @@ const Teams = () => {
       flex: 1,
     },
     {
-      field: "account",
+      field: "accountName",
       headerName: "Account",
       flex: 1,
     },
@@ -45,10 +56,11 @@ const Teams = () => {
         title="Teams"
         subtitle="Teams :p"
         addAction={createItem}
+        dataSelectField={accountData}
       />
       <Table
         columns={columns}
-        data={data}
+        data={enrichedData}
         handleEditClick={handleEditClick}
         handleDeletClick={deleteItems}
       />
@@ -58,6 +70,7 @@ const Teams = () => {
           onClose={handleCloseModal}
           dataRow={dataRow}
           handleEdit={updateItem}
+          dataSelectField={accountData}
         />
       )}
     </Box>
