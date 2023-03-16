@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tests in <Home /> should match the snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiBox-root css-zwiamn"
+  >
+    <div
+      class="MuiBox-root css-69i1ev"
+    >
+      <div
+        class="MuiBox-root css-b5mc0i"
+      >
+        <div
+          class="MuiBox-root css-0"
+        >
+          <h2
+            class="MuiTypography-root MuiTypography-h2 css-be5vtk-MuiTypography-root"
+          >
+            Welcome
+          </h2>
+          <h5
+            class="MuiTypography-root MuiTypography-h5 css-b1sixc-MuiTypography-root"
+          >
+            Start managing Users/Accounts/Teams with ease.
+          </h5>
+        </div>
+        <div
+          class="MuiBox-root css-0"
+        />
+      </div>
+    </div>
+    <img
+      alt="Cute puppy at the office"
+      class="MuiCardMedia-root MuiCardMedia-media MuiCardMedia-img css-o69gx8-MuiCardMedia-root"
+      src="../../../assets/cute_dog.png"
+      style="display: flex; position: absolute; top: 50%; left: 50%; margin-top: 30px; transform: translate(-50%, -50%); width: 200px; height: 200px; border-radius: 20px;"
+    />
+  </div>
+</DocumentFragment>
+`;
