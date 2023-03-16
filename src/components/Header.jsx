@@ -4,7 +4,7 @@ import { tokens } from "../theme";
 import AddModalWindow from "./AddModalWindow";
 import CircleButton from "./CircleButton";
 
-const Header = ({ isTable = false, title, subtitle, addAction }) => {
+const Header = ({ isTable = false, title, subtitle, addAction, dataSelectField }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -35,6 +35,7 @@ const Header = ({ isTable = false, title, subtitle, addAction }) => {
             open={openModal}
             onClose={handleCloseModal}
             addAction={addAction}
+            dataSelectField={dataSelectField}
           />
         )}
       </Box>

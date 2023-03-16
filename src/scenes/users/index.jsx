@@ -13,6 +13,7 @@ import { useManageData } from "../../hooks/useManageData";
 
 const Users = () => {
   const { data, deleteItems, updateItem, createItem } = useManageData("users");
+  const { data: teamsData } = useManageData("teams");
 
   const [setPage] = useSetPages();
   const [dataRow, setDataRow] = useState({});
@@ -21,6 +22,17 @@ const Users = () => {
 
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  const getTeamName = (teamId) => {
+    const team = teamsData.find((team) => team.id === teamId);
+    return team ? team.name : "Not found";
+  };
+
+  const enrichedData = data.map((team) => ({
+    ...team,
+    teamName: getTeamName(team.teamId),
+  }));
+
   const columns = [
     // { field: "id", headerName: "ID", flex: 0.5 },
     {
@@ -51,7 +63,7 @@ const Users = () => {
       flex: 1,
     },
     {
-      field: "team",
+      field: "teamName",
       headerName: "Team",
       flex: 1,
     },
@@ -104,10 +116,11 @@ const Users = () => {
         title="Users"
         subtitle="List of Users for future amazing projects"
         addAction={createItem}
+        dataSelectField={teamsData}
       />
       <Table
         columns={columns}
-        data={data}
+        data={enrichedData}
         handleEditClick={handleEditClick}
         handleDeletClick={deleteItems}
       />
@@ -117,6 +130,7 @@ const Users = () => {
           onClose={handleCloseModal}
           dataRow={dataRow}
           handleEdit={updateItem}
+          dataSelectField={teamsData}
         />
       )}
     </Box>

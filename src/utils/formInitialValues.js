@@ -12,7 +12,7 @@ export const getInitialValues = (page) => {
         skills: "",
         resumeLink: "",
         role: "",
-        team: "",
+        teamId: "",
       };
       break;
 
@@ -27,7 +27,7 @@ export const getInitialValues = (page) => {
     case "teams":
       obj = {
         name: "",
-        account: ""
+        accountId: ""
       };
       break;
 
