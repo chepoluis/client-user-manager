@@ -77,6 +77,9 @@ const Login = (props) => {
                 error={!!touched.email && !!errors.email}
                 helperText={touched.email && errors.email}
                 sx={{ gridColumn: "span 2" }}
+                InputProps={{
+                  "data-testid": "email-helper-text",
+                }}
               />
               <TextField
                 fullWidth
@@ -90,6 +93,9 @@ const Login = (props) => {
                 error={!!touched.password && !!errors.password}
                 helperText={touched.password && errors.password}
                 sx={{ gridColumn: "span 2" }}
+                InputProps={{
+                  "data-testid": "password-helper-text",
+                }}
               />
             </Box>
             <Box mt="20px">
