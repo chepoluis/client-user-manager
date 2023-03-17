@@ -15,6 +15,8 @@ import { useSelector } from "react-redux";
 import { getPageObject } from "../../utils/objectForms";
 import { deleteLastLetter } from "../../utils/deleteLastLetter";
 import { isEmptyObject } from "../../utils/isEmptyObject";
+import { useManageData } from "../../hooks/useManageData";
+import moment from "moment";
 
 // import Swal from "sweetalert2";
 // import "sweetalert2/dist/sweetalert2.css";
@@ -27,6 +29,9 @@ const Form = forwardRef((props, ref) => {
     closeModal,
     dataSelectField = [],
   } = props;
+
+  const { createItem } = useManageData("logs");
+
   const [selectData, setSelectData] = useState(
     dataRow[dataRow.accountId] || ""
   );
@@ -63,6 +68,17 @@ const Form = forwardRef((props, ref) => {
     } else {
       handleEdit(values.id, values);
       // Swal.fire("Edited", ":)", "success");
+    }
+
+    if (currentPage === "users") {
+      const { name: teamName } = dataSelectField.find(
+        (val) => val.id === values.teamId
+      );
+
+      createItem({
+        date: moment().format("MMMM Do YYYY, h:mm:ss a"),
+        message: `${values.firstName} was added to the team "${teamName}"`,
+      });
     }
 
     closeModal();
