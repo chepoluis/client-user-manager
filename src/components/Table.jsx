@@ -1,9 +1,15 @@
 import { Box, Button, useTheme } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { useState } from "react";
 import { tokens } from "../theme";
 
-const Table = ({ columns, data, handleEditClick, handleDeletClick, isDeleteEnabled = true }) => {
+const Table = ({
+  columns,
+  data,
+  handleEditClick,
+  handleDeletClick,
+  isDeleteEnabled = true,
+}) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -46,6 +52,9 @@ const Table = ({ columns, data, handleEditClick, handleDeletClick, isDeleteEnabl
           "& .MuiCheckbox-root": {
             color: `${colors.greenAccent[200]} !important`,
           },
+          "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+            color: `${colors.grey[100]} !important`,
+          },
         }}
       >
         {/* {selectedRows.length > 0 && (
@@ -75,6 +84,7 @@ const Table = ({ columns, data, handleEditClick, handleDeletClick, isDeleteEnabl
           rows={data}
           columns={columns}
           onSelectionModelChange={handleSelectionChange}
+          components={{ Toolbar: GridToolbar }}
           // selectionModel={selectedRows.map((row) => row)}
         />
       </Box>
