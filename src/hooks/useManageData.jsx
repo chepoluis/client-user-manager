@@ -50,7 +50,8 @@ export const useManageData = (dataName) => {
 
   const updateItem = (id, updates) => {
     return axios
-      .put(`${URL_API}/${dataName}/${id}`, updates)
+      // .put(`${URL_API}/${dataName}/${id}`, updates)
+      .patch(`${URL_API}/${dataName}/${id}`, updates)
       .then((response) => {
         const updatedList = data.map((item) => {
           if (item.id === response.data.id) {
@@ -70,15 +71,7 @@ export const useManageData = (dataName) => {
     return axios
       .get(`${URL_API}/users/${userId}`)
       .then((response) => {
-        
-        return {
-          "firstName": response.data.firstName,
-          "lastName": response.data.lastName,
-          "email": response.data.email,
-          "englishLevel": response.data.englishLevel,
-          "skills": response.data.skills
-        }
-        // return response.data;
+        return response.data;
       })
       .catch((error) => {
         console.log(error);
